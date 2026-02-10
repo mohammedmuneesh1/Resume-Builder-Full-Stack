@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+/* *{
+  padding:0px;
+  margin:0px;
+  box-sizing: border-box; // we  moved this stuff to layer base 
+  
+} */
+
+@theme inline {
+  --color-primary:#9328E7;
+  --color-bgPrimary:#F6F2E9;
+
+  --breakpoint-3xl:1920px;
+  --font-display:'Urbanist', sans-serif;
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4xl: 2360px;
+  /* --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono); */
+}
+
+
+
+
+/* :root {
+  --background: #ffffff;
+  --foreground: #171717;
+} */
+/* 
+ */
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-urbanist);
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+  h1, h2, h3{
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+
+  }
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  /* background-color: #9328E7; */
+  background-color:rgba(100,100,100,0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+
+@layer utilities {
+
+  @keyframs text-shine{
+    0%{
+      background-position: 0 50^;
+    }
+    100%{
+      background-position:100% 50%;
+    }
+  }
+
+.animate-text-shine{
+  animation:text-shine 3s ease-in-out infinite alternate;
+}
+
+.input-box{
+  @apply w-full flex justify-between gap-3 text-sm
+   text-black bg-gray-50/50 rounded px-4 py-3 mb-4
+    mt-2 border border-slate-200 !outline-none 
+     focus-within:border-purple-300
+     ;
+}
+
+.btn-primary{
+  @apply w-full text-sm font-medium text-white bg-black shadow-lg shadow-purple-600/5 p-[10px] rounded-md my-1 hover:bg-purple-600/15 hover:text-black cursor-pointer transition-all duration-300 ease-in-out;
+}
+
+.btn-small{
+  @apply flex items-center gap-2 text-[13px] font-semibold text-white bg-linear-to-r from-purple-500/85 to-purple-700 px-5 py-1.5 rounded cursor-pointer;
+ }
+
+.btn-small-light{
+  @apply flex items-center gap-2 text-[12px] font-semibold text-purple-800  bg-purple-600/15 border border-purple-50 hover:border-purple-400 px-3 py-1.5 rounded cursor-pointer; 
+}
+
+.form-input{
+  @apply w-full text-sm text-black
+   outline-none bg-gray-50/50 border
+   border-slate-200 px-2.5 py-3 rounded mt-2
+    placeholder:text-gray-500 focus-within:border-purple-300;
+}
+
+
+/* .common-text-size{
+   @apply text-sm md:text-base xl:text-lg 2xl:text-xl leading-relaxed;
+} */
+
+
+}
+
+
+@layer components{
+  .screenPadding{
+    @apply px-6 sm:px-12 
+  }
+   .screenWidth{
+    @apply max-w-screen-3xl mx-auto 
+   }
+   .paddingFromHeader{
+    @apply pt-16
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*TO REMOVE AUTO SELECT COLOR START*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important; /* change 'white' to match your input bg */
+  box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color: #000 !important; /* set text color */
+  transition: background-color 9999s ease-in-out 0s; /* prevent flashing */
+}
+
+/*TO REMOVE AUTO SELECT COLOR END*/
