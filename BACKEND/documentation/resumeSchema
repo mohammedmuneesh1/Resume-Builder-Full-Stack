@@ -1,0 +1,18 @@
+
+
+
+slug - generation 
+
+https://resumebuilder.com/r/john-doe-frontend-developer
+
+https://resumebuilder.com/r/john-doe-frontend-developer
+
+slug = `${fullName}-${title}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
+
+
+And if you want to avoid slug duplication, you append something unique (like part of the ObjectId or a nanoid):
+
+john-doe-frontend-developer-resume-9a3b2f
+
+
+

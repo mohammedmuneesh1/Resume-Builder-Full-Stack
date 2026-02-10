@@ -1,0 +1,44 @@
+@desc → short description of what the route does
+@route → HTTP method and endpoint
+@access → who can access (Public / Private / Admin)
+
+
+
+Accept request → Save user first (with “upload pending” flag).
+
+Queue the upload (e.g., with BullMQ + Redis).
+
+Notify user when upload completes.
+
+
+
+
+
+files [Object: null prototype] {
+  profileImage: [
+    {
+      fieldname: 'profileImage',
+      originalname: 'bf87f22ad28fa2aff111e50dc53f332f.webp',
+      encoding: '7bit',
+      mimetype: 'image/webp',
+      buffer: <Buffer 52 49 46 46 42 45 00 00 57 45 42 50 56 50 38 20 36 45 00 00 90 32 02 9d 01 2a e0 02 98 03 3e d1 66 ad 51 a8 2a b7 32 a3 51 79 b2 e0 1a 09 67 6e d8 b9 ... 17688 more bytes>,
+      size: 17738
+    }
+  ],
+  thumbnail: [
+    {
+      fieldname: 'thumbnail',
+      originalname: 'resume-6915960aa63b93caeb45413a.webp',
+      encoding: '7bit',
+      mimetype: 'image/webp',
+      buffer: <Buffer 52 49 46 46 06 86 00 00 57 45 42 50 56 50 38 20 fa 85 00 00 b0 a9 08 9d 01 2a 5e 0a b0 0c 3e d1 68 af 53 28 25 bf b0 20 32 38 23 f0 1a 09 69 6e e1 77 ... 34268 more bytes>,
+      size: 34318
+    }
+  ]
+}
+userId {
+  uId: '690efefd5e8db89bb3c36fd3',
+  role: 'User',
+  iat: 1768301991,
+  exp: 1770893991
+}
