@@ -794,6 +794,7 @@ setResumeData(prev => ({
         </button>
 
         <button
+        onClick={()=>setOpenPreviewModal(true)}
         className="btn-small-light"
         // onClick={handleDeleteResume}
         >
@@ -866,7 +867,7 @@ setResumeData(prev => ({
                 {isLoading ? 'Updating...' : 'Save & Exit' }
             </button> */}
 
-            <button
+            {/* <button
              className="btn-small"
              onClick={validateAndNext}
              disabled={isLoading}
@@ -881,7 +882,7 @@ setResumeData(prev => ({
                 {currentPage != "additionalInfo" && (
                     <LuArrowLeft className="text-base rotate-180" />
                 )}
-            </button>
+            </button> */}
         </div>
 
           {/** */}
@@ -957,7 +958,6 @@ containerWidth={baseWidth}
   isOpen={openThemeSelector}
   onClose={()=>setOpenThemeSelector(false)}
   title="Select a theme"
-  
   >
     <div className="w-[95vw] h-[80vh] ">
     <ThemeSelector 
@@ -976,7 +976,35 @@ containerWidth={baseWidth}
     />
     </div>
     </Modal>
+
+
   {/*CHANGE THEME MODAL END */}
+  <Modal
+  isOpen={openPreviewModal}
+  onClose={()=>setOpenPreviewModal(false)}
+  title={resumeData?.title || "Resume"}
+  actionBtnText="Download"
+  showActionBtn
+  actionBtnIcon={<LuDownload className="" />}
+  onActionClick={reactToPrintFn}
+  >
+
+
+<div 
+ref={resumeDownloadRef}
+className=" w-[98vw] h-[90vh] flex justify-center"
+>
+    <RenderResume 
+    templateId={resumeData?.template?.theme || ""}
+    resumeData={resumeData }
+    colorPalette={resumeData?.template?.colorPalette || []}
+    // containerWidth={baseWidth}
+    />
+</div>
+
+  </Modal>
+  
+  {/*OPEN PREVIEW MODAL END */}
 
 
 </section>

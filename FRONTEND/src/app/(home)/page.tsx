@@ -5,15 +5,59 @@ import { useState } from "react";
 import { LoginContent } from "./auth/signin/LoginClientPage";
 import { SignUpContent } from "./auth/signup/SignupClientPage";
 import { useUserContexxt } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
+import Modal from "@/components/modals/Modal";
+import Link from "next/link";
+import CreateResumeForm from "@/components/dashboard/CreateResumeForm";
 
 const resumeTemplates = ["01.webp", "02.webp", "03.webp", "04.webp"];
 
+
 const HomeLandingPage = () => {
-    const companies = ["Google", "Microsoft", "Amazon", "Meta", "Apple"];
+    const companies = ["Google", "Microsoft","Amazon", "Meta", "Apple"];
+    const {user} = useUserContexxt(); 
+    const router = useRouter();
+    const [openAuthModal,setOpenAuthModal] = useState<boolean>(false);
+    const [currentPage,setCurrentPage] = useState("login");  
+
+    //RESUME TEMPLATE SELECTION 
+    const [showSelectTemplateModal,setShowSelectTemplateModal] = useState<boolean>(false);
+    const [selectedTemplateId,setSelectedTemplateId] = useState<string | null>(null);   
+
+
+
+    
+    
+
+
+
 
     const handleCTA = () => {
-        alert('cta need updation');
+        if(user){
+        router.push('/account/dashboard');
+        }
+        else{
+            // router.push('/auth/signin');
+            setCurrentPage('login');
+            setOpenAuthModal?.(true)
+        }
     }
+
+
+
+
+    const templateSelectionFn = (templateId:string)=>{
+        if(user){
+            setShowSelectTemplateModal(true);
+            setSelectedTemplateId(templateId);
+        }
+        else{
+            setCurrentPage('login');
+            setOpenAuthModal?.(true);
+        }
+
+    }
+
 
     return (
         <section className="w-full max-w-full min-h-full">
@@ -49,11 +93,12 @@ const HomeLandingPage = () => {
                             >
                                 Get Started Free →
                             </button>
-                            <button
+                            <Link
+                                href="/templates"
                                 className="border-2 border-gray-300 text-gray-700 font-semibold px-8 py-4 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all duration-300 cursor-pointer"
                             >
                                 View Templates
-                            </button>
+                            </Link>
                         </div>
 
                         {/* STATS */}
@@ -277,10 +322,13 @@ const HomeLandingPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {resumeTemplates.map((fileName, index) => {
                         const label = `Template ${String(index + 1).padStart(2, "0")}`;
+                        const templateId = fileName.split(".")[0];
                         const src = `/resumeTemplates/${fileName}`;
 
                         return (
-                            <div key={fileName} className="group cursor-pointer">
+                            <div
+                            onClick={()=>templateSelectionFn(templateId)}
+                            key={fileName} className="group cursor-pointer">
                                 <div className="bg-gray-100 rounded-xl overflow-hidden border-2 border-gray-200 group-hover:border-blue-500 transition-all duration-300 group-hover:shadow-xl">
                                     <div className="aspect-[3/4] bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center relative">
                                         <Image
@@ -299,9 +347,11 @@ const HomeLandingPage = () => {
                 </div>
 
                 <div className="text-center mt-12">
-                    <button className="border-2 border-gray-300 text-gray-700 font-semibold px-8 py-4 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all duration-300">
+                    <Link
+                    href="/templates"
+                     className="border-2 border-gray-300 text-gray-700 font-semibold px-8 py-4 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all duration-300">
                         View All Templates →
-                    </button>
+                    </Link>
                 </div>
             </section>
 
@@ -356,110 +406,11 @@ const HomeLandingPage = () => {
                 </div>
             </section>
 
-            {/* PRICING SECTION */}
-            <section className="screenPadding screenWidth py-20">
-                <div className="text-center mb-16">
-                    <span className="text-sm font-semibold px-4 py-2 bg-pink-50 text-pink-700 rounded-full border border-pink-200">
-                        PRICING
-                    </span>
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-6 mb-4">
-                        Choose Your Plan
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Start for free, upgrade when you&apos;re ready
-                    </p>
-                </div>
+            {/* PRICING SECTION  START*/}
+            {/* PRICING SECTION  END*/}
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    {/* Free Plan */}
-                    <div className="bg-white p-8 rounded-2xl border-2 border-gray-200 hover:border-blue-300 transition-all">
-                        <h3 className="text-2xl font-bold mb-2">Free</h3>
-                        <div className="mb-6">
-                            <span className="text-4xl font-bold">$0</span>
-                            <span className="text-gray-600">/month</span>
-                        </div>
-                        <ul className="space-y-3 mb-8">
-                            <li className="flex items-center text-gray-600">
-                                <span className="text-green-500 mr-2">✓</span>
-                                1 Resume
-                            </li>
-                            <li className="flex items-center text-gray-600">
-                                <span className="text-green-500 mr-2">✓</span>
-                                3 Templates
-                            </li>
-                            <li className="flex items-center text-gray-600">
-                                <span className="text-green-500 mr-2">✓</span>
-                                Basic Support
-                            </li>
-                        </ul>
-                        <button className="w-full border-2 border-gray-300 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-all">
-                            Get Started
-                        </button>
-                    </div>
 
-                    {/* Pro Plan */}
-                    <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-8 rounded-2xl text-white transform scale-105 shadow-2xl relative">
-                        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-bold">
-                            POPULAR
-                        </div>
-                        <h3 className="text-2xl font-bold mb-2">Pro</h3>
-                        <div className="mb-6">
-                            <span className="text-4xl font-bold">$9</span>
-                            <span className="text-blue-100">/month</span>
-                        </div>
-                        <ul className="space-y-3 mb-8">
-                            <li className="flex items-center">
-                                <span className="mr-2">✓</span>
-                                Unlimited Resumes
-                            </li>
-                            <li className="flex items-center">
-                                <span className="mr-2">✓</span>
-                                All Templates
-                            </li>
-                            <li className="flex items-center">
-                                <span className="mr-2">✓</span>
-                                AI-Powered Content
-                            </li>
-                            <li className="flex items-center">
-                                <span className="mr-2">✓</span>
-                                Priority Support
-                            </li>
-                        </ul>
-                        <button className="w-full bg-white text-purple-600 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-all">
-                            Start Free Trial
-                        </button>
-                    </div>
-
-                    {/* Enterprise Plan */}
-                    <div className="bg-white p-8 rounded-2xl border-2 border-gray-200 hover:border-blue-300 transition-all">
-                        <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
-                        <div className="mb-6">
-                            <span className="text-4xl font-bold">Custom</span>
-                        </div>
-                        <ul className="space-y-3 mb-8">
-                            <li className="flex items-center text-gray-600">
-                                <span className="text-green-500 mr-2">✓</span>
-                                Everything in Pro
-                            </li>
-                            <li className="flex items-center text-gray-600">
-                                <span className="text-green-500 mr-2">✓</span>
-                                Team Collaboration
-                            </li>
-                            <li className="flex items-center text-gray-600">
-                                <span className="text-green-500 mr-2">✓</span>
-                                Custom Branding
-                            </li>
-                            <li className="flex items-center text-gray-600">
-                                <span className="text-green-500 mr-2">✓</span>
-                                Dedicated Support
-                            </li>
-                        </ul>
-                        <button className="w-full border-2 border-gray-300 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-all">
-                            Contact Sales
-                        </button>
-                    </div>
-                </div>
-            </section>
+           
 
             {/* FAQ SECTION */}
             <section className="bg-gradient-to-b from-gray-50 to-white py-20">
@@ -521,9 +472,9 @@ const HomeLandingPage = () => {
                         >
                             Start Building Now →
                         </button>
-                        <button className="border-2 border-white text-white font-semibold px-8 py-4 rounded-xl hover:bg-white hover:text-purple-600 transition-all duration-300">
+                        {/* <button className="border-2 border-white text-white font-semibold px-8 py-4 rounded-xl hover:bg-white hover:text-purple-600 transition-all duration-300">
                             View Pricing
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </section>
@@ -576,6 +527,65 @@ const HomeLandingPage = () => {
                     flex: 0 0 100%;
                 }
             `}</style>
+
+
+
+
+
+
+            
+                                           {/*MODAL SECTION START */}
+                            <Modal
+                            isOpen={openAuthModal}
+                            onClose={()=>{
+                                setOpenAuthModal(false);
+                                setCurrentPage('login');
+                            }}
+                            >
+                            <>
+            
+                            {
+                             currentPage === 'login'  ? (
+                                <LoginContent
+                                setCurrentPage={setCurrentPage}
+                                closeModal={()=>setOpenAuthModal(false)}
+                                
+                                />
+                             )   :(
+                                <SignUpContent
+                                closeModal={()=>setOpenAuthModal(false)}
+                                   setCurrentPage={setCurrentPage}
+                                />
+                             )
+            
+                            }
+                            </>
+                            </Modal>
+                            
+                            {/*MODAL SECTION END */}
+                           
+
+                            {/*TEMPLATE SELECTION MODAL START  */}
+                            <Modal
+                            isOpen={showSelectTemplateModal}
+                            onClose={()=>{
+                                setShowSelectTemplateModal(false);
+                                setSelectedTemplateId(null);
+                            }}
+                            >
+                                <CreateResumeForm
+                                templateId={selectedTemplateId}
+                                />
+                            </Modal>
+                            {/*TEMPLATE SELECTION MODAL END  */}
+
+
+            
+
+
+
+
+
         </section>
     )
 }
@@ -599,6 +609,115 @@ export default HomeLandingPage;
 
 
 
+//==============================================⚠️⚠️⚠️  PRICE SECTION START ⚠️⚠️⚠️ =============================================================
+
+
+//  <section className="screenPadding screenWidth py-20">
+//                 <div className="text-center mb-16">
+//                     <span className="text-sm font-semibold px-4 py-2 bg-pink-50 text-pink-700 rounded-full border border-pink-200">
+//                         PRICING
+//                     </span>
+//                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-6 mb-4">
+//                         Choose Your Plan
+//                     </h2>
+//                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+//                         Start for free, upgrade when you&apos;re ready
+//                     </p>
+//                 </div>
+
+//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+//                     {/* Free Plan */}
+//                     <div className="bg-white p-8 rounded-2xl border-2 border-gray-200 hover:border-blue-300 transition-all">
+//                         <h3 className="text-2xl font-bold mb-2">Free</h3>
+//                         <div className="mb-6">
+//                             <span className="text-4xl font-bold">$0</span>
+//                             <span className="text-gray-600">/month</span>
+//                         </div>
+//                         <ul className="space-y-3 mb-8">
+//                             <li className="flex items-center text-gray-600">
+//                                 <span className="text-green-500 mr-2">✓</span>
+//                                 1 Resume
+//                             </li>
+//                             <li className="flex items-center text-gray-600">
+//                                 <span className="text-green-500 mr-2">✓</span>
+//                                 3 Templates
+//                             </li>
+//                             <li className="flex items-center text-gray-600">
+//                                 <span className="text-green-500 mr-2">✓</span>
+//                                 Basic Support
+//                             </li>
+//                         </ul>
+//                         <button className="w-full border-2 border-gray-300 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-all">
+//                             Get Started
+//                         </button>
+//                     </div>
+
+//                     {/* Pro Plan */}
+//                     <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-8 rounded-2xl text-white transform scale-105 shadow-2xl relative">
+//                         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-bold">
+//                             POPULAR
+//                         </div>
+//                         <h3 className="text-2xl font-bold mb-2">Pro</h3>
+//                         <div className="mb-6">
+//                             <span className="text-4xl font-bold">$9</span>
+//                             <span className="text-blue-100">/month</span>
+//                         </div>
+//                         <ul className="space-y-3 mb-8">
+//                             <li className="flex items-center">
+//                                 <span className="mr-2">✓</span>
+//                                 Unlimited Resumes
+//                             </li>
+//                             <li className="flex items-center">
+//                                 <span className="mr-2">✓</span>
+//                                 All Templates
+//                             </li>
+//                             <li className="flex items-center">
+//                                 <span className="mr-2">✓</span>
+//                                 AI-Powered Content
+//                             </li>
+//                             <li className="flex items-center">
+//                                 <span className="mr-2">✓</span>
+//                                 Priority Support
+//                             </li>
+//                         </ul>
+//                         <button className="w-full bg-white text-purple-600 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-all">
+//                             Start Free Trial
+//                         </button>
+//                     </div>
+
+//                     {/* Enterprise Plan */}
+//                     <div className="bg-white p-8 rounded-2xl border-2 border-gray-200 hover:border-blue-300 transition-all">
+//                         <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
+//                         <div className="mb-6">
+//                             <span className="text-4xl font-bold">Custom</span>
+//                         </div>
+//                         <ul className="space-y-3 mb-8">
+//                             <li className="flex items-center text-gray-600">
+//                                 <span className="text-green-500 mr-2">✓</span>
+//                                 Everything in Pro
+//                             </li>
+//                             <li className="flex items-center text-gray-600">
+//                                 <span className="text-green-500 mr-2">✓</span>
+//                                 Team Collaboration
+//                             </li>
+//                             <li className="flex items-center text-gray-600">
+//                                 <span className="text-green-500 mr-2">✓</span>
+//                                 Custom Branding
+//                             </li>
+//                             <li className="flex items-center text-gray-600">
+//                                 <span className="text-green-500 mr-2">✓</span>
+//                                 Dedicated Support
+//                             </li>
+//                         </ul>
+//                         <button className="w-full border-2 border-gray-300 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-all">
+//                             Contact Sales
+//                         </button>
+//                     </div>
+//                 </div>
+//             </section>
+
+
+//==============================================⚠️⚠️⚠️  PRICE SECTION END ⚠️⚠️⚠️ =============================================================
 
 
 

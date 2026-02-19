@@ -6,7 +6,13 @@ import { FormEvent, useState } from "react";
 import Input from "../Input/Input";
 
 
-const CreateResumeForm = () => {
+
+interface CreateResumeFormInterface{
+    templateId?:string | null;
+
+
+}
+const CreateResumeForm:React.FC<CreateResumeFormInterface> = ({templateId}) => {
 
     const [title,setTitle] = useState<string | null>(null);
     const [error,setError] = useState<null | string>("");
@@ -24,15 +30,14 @@ const CreateResumeForm = () => {
         }
         setError('');
         setLoading(true)
-        const res = await CREATE_RESUME_FORM(title);
-        setLoading(false)
+        const res = await CREATE_RESUME_FORM(title,...(typeof templateId === "string" ? [templateId] : []));
+        setLoading(false);
         if(res?.success){
             router.push(`/account/resume/${res?.data?.resumeId}`);
         }
         else{
             return setError(res?.response);
         }
-
     }
 
 

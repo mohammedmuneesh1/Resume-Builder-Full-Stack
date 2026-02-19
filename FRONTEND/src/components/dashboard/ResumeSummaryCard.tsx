@@ -24,6 +24,8 @@ const ResumeSummaryCard:React.FC<ResumeSummaryCardInterface> = ({
     uId
 })=>{
 
+    console.log('imgUrl',imgUrl);
+
     const [bgColor,setBgColor] = useState<string>('#ffffff');
     const router = useRouter();
 

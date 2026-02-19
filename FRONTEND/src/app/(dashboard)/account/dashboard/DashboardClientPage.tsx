@@ -63,6 +63,7 @@ interface DashboardClientPageInterface{
           Array.isArray(resumeData?.data) && resumeData?.data?.length > 0 &&
            resumeData?.data?.map((resume)=>(
             <div key={resume?._id}>
+              {/* resumeData?.data?.map((resume)=>( */}
               <ResumeSummaryCard
               key={resume?._id}
               uId={resume?._id}

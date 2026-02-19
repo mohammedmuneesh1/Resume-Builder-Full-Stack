@@ -12,20 +12,18 @@ import { FormEvent, useState } from "react";
 
 const LoginClientPage = () => {
   return (
-    <div className="bg-gray-200 min-h-screen ">
-      <div className="flex justify-between items-center mb-16 mx-auto py-6 px-4 ">
-        <div className="text-xl font-bold">Resume Builder</div>
-      </div>
-
+    <div className="bg-gray-200 min-h-screen  py-[10vh] md:py-[15vh] lg:py-[20vh]">
       <div className="flex justify-center">
         <div className="bg-white">
       <LoginContent />
         </div>
       </div>
-
     </div>
   );
 };
+
+
+
 
 export default LoginClientPage;
 

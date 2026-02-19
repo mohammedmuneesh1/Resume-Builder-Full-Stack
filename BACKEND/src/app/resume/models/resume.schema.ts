@@ -43,8 +43,8 @@ const ResumeSchema = new mongoose.Schema(
     template: {
       theme: {
         type: String,
-        enum: ["modern", "classic", "minimal", "creative", "professional"],
-        default: "modern",
+        // enum: ["modern", "classic", "minimal", "creative", "professional"],
+        // default: "modern",  //THIS VALUES ARE FAKE AND HAS NO CONNECTION WITH CORRECT
       },
       colorPalette: [
         {

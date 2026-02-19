@@ -10,7 +10,7 @@ interface RenderResumeInterface {
   templateId: string;
   resumeData: ResumeDataInterface;
   colorPalette: string[];
-  containerWidth: number;
+  containerWidth?: number;
 }
 const RenderResume: React.FC<RenderResumeInterface> = ({
   resumeData,
@@ -25,7 +25,7 @@ const RenderResume: React.FC<RenderResumeInterface> = ({
         <TemplateOne
         resumeData={resumeData}
         colorPalette={colorPalette}
-        containerWidth={containerWidth}
+        containerWidth={containerWidth }
         />
       )
 

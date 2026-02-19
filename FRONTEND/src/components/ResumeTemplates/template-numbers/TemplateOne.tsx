@@ -60,7 +60,7 @@ import { HiOutlineGlobeAlt } from 'react-icons/hi';
 interface TemplateOneInterface{
        resumeData: ResumeDataInterface;
         colorPalette:string[];
-        containerWidth:number;
+        containerWidth?:number;
 
 
     }
@@ -87,11 +87,6 @@ const TemplateOne:React.FC<TemplateOneInterface> = ({
 
      
     
-    
-    console.log('inside templateOne containerWidth',containerWidth);
-    console.log('inside templateOne baseWidth',baseWidth);
-    console.log('inside templateOne scale',scale);
-
 
 
 //     useEffect(()=>{
@@ -115,8 +110,12 @@ const TemplateOne:React.FC<TemplateOneInterface> = ({
 useEffect(()=>{
    const actualBaseWidth = resumeRef.current?.offsetWidth || 800;
    setBaseWidth(actualBaseWidth);
-   const newScale = containerWidth / actualBaseWidth;  // ✅ Uses FRESH value
-   setScale(newScale);
+   
+   if(typeof containerWidth === "number"){
+          const newScale = containerWidth / actualBaseWidth;  // ✅ Uses FRESH value
+          setScale(newScale);
+
+   }
 }, [containerWidth]);
 
 
@@ -126,9 +125,9 @@ useEffect(()=>{
     <div 
     ref={resumeRef}
     style={{
-        transform:containerWidth > 0 ? `scale(${scale})` :'none',
+        transform:typeof containerWidth === "number" && containerWidth > 0 ? `scale(${scale})` :'none',
         transformOrigin:"top left",
-        width: containerWidth > 0 ? `${baseWidth}px`:"auto", // keep the original size so scaling works correctly
+        width: typeof containerWidth === "number" && containerWidth > 0 ? `${baseWidth}px`:"auto", // keep the original size so scaling works correctly
         height:'auto',
         // minHeight:"1123px",
         // minHeight:"100vh",

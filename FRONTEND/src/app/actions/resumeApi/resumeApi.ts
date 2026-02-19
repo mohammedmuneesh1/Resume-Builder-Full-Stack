@@ -13,11 +13,11 @@ export const FETCH_ALL_RESUMES = async  ()=>{
     }
 }
 
-export const CREATE_RESUME_FORM = async  (title:string)=>{
+export const CREATE_RESUME_FORM = async  (title:string,templateId?:string)=>{
     try {
         const res =
          await axiosInstance
-         .post('/api/resumes/',{title});
+         .post('/api/resumes/',{title,templateId});
         return res?.data;
     } catch (error) {
         return axiosErrorHandler(error,"CREATE_RESUME_FORM");

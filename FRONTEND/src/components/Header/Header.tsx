@@ -5,6 +5,7 @@ import { LoginContent } from "@/app/(home)/auth/signin/LoginClientPage";
 import { SignUpContent } from "@/app/(home)/auth/signup/SignupClientPage";
 import Modal from "../modals/Modal";
 import { useState } from "react";
+import Link from "next/link";
 
 
 interface HeaderInterface{
@@ -26,7 +27,9 @@ const Header:React.FC<HeaderInterface> = ()=>{
                     <div
                     className="text-xl font-bold"
                     >
+                        <Link href="/"> 
                         Aure CV
+                        </Link>
                     </div>
                     {/*LOGO SIDE END */}
 
@@ -76,12 +79,7 @@ const Header:React.FC<HeaderInterface> = ()=>{
                     />
                  )
 
-
                 }
-
-
-
-
                 </>
                 </Modal>
                 

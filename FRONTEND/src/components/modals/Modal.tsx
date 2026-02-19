@@ -10,7 +10,7 @@ interface ModalInterface {
     title?:string;
     hideHeader?:boolean;
     showActionBtn?:boolean;
-    actionBtnIcon?:null;
+    actionBtnIcon?:null | React.ReactNode;
     actionBtnText?:string;
     hideCloseBtn?:boolean;
     onActionClick?:()=>void;
@@ -49,7 +49,7 @@ const Modal:React.FC<ModalInterface> = (
             >
                 <h3 className="md:text-lg font-medium text-gray-900 ">{title}</h3>
                 
-                {
+                {/* {
                     showActionBtn && (
                         <button
                         className="btn-small-light mr-12"
@@ -58,10 +58,15 @@ const Modal:React.FC<ModalInterface> = (
                         }}
                         >
                             {actionBtnIcon}
-                            [actionBtnText]
+                            {actionBtnText}
                         </button>
                     )
                 }
+             */}
+
+            <div className="flex flex-col gap-3 items-end ">
+
+                 
 
                    <button
     type="button"
@@ -78,6 +83,24 @@ const Modal:React.FC<ModalInterface> = (
             )
         }
     </button>
+
+
+       {
+                    showActionBtn && (
+                        <button
+                        className="btn-small-light "
+                        onClick={()=>{
+                            onActionClick?.()
+                        }}
+                        >
+                            {actionBtnIcon}
+                            {actionBtnText}
+                        </button>
+                    )
+                }
+
+
+            </div>
 
             </div>
         )}

@@ -27,7 +27,7 @@ const DEFAULT_THEME = [
 interface TemplateTwoInterface {
     resumeData: ResumeDataInterface;
     colorPalette?: string[];
-    containerWidth: number;
+    containerWidth?: number;
 }
 
 const TemplateTwo: React.FC<TemplateTwoInterface> = ({
@@ -44,9 +44,13 @@ const TemplateTwo: React.FC<TemplateTwoInterface> = ({
     useEffect(() => {
         const actualBaseWidth = resumeRef.current?.offsetWidth || 800;
         setBaseWidth(actualBaseWidth);
-        setScale(containerWidth / baseWidth);
+     if(typeof containerWidth === "number"){
+          const newScale = containerWidth / actualBaseWidth;  // ✅ Uses FRESH value
+          setScale(newScale);
+    }
     }, [containerWidth, baseWidth]);
 
+    // typeof containerWidth === "number" && containerWidth
     // Format date helper
     const formatDate = (date: string) => {
         if (!date) return '';
@@ -85,9 +89,9 @@ const TemplateTwo: React.FC<TemplateTwoInterface> = ({
         <div
             ref={resumeRef}
             style={{
-                transform: containerWidth > 0 ? `scale(${scale})` : 'none',
+                transform:  typeof containerWidth === "number" && containerWidth > 0 ? `scale(${scale})` : 'none',
                 transformOrigin: "top left",
-                width: containerWidth > 0 ? `${baseWidth}px` : "auto", 
+                width: typeof containerWidth === "number" && containerWidth > 0 ? `${baseWidth}px` : "auto", 
                 height: 'auto',
             }}
             className='bg-white flex'

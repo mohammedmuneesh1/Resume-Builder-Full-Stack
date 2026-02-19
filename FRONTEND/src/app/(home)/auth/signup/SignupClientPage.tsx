@@ -17,7 +17,14 @@ import { useModalContext } from "@/context/ModalContext";
 const SignupClientPage = ()=>{
     return(
         <>
+            <div className="bg-gray-200 min-h-screen  py-[10vh] md:py-[15vh] lg:py-[20vh]">
+              <div className="flex justify-center">
+                <div className="bg-white">
         <SignUpContent/>
+                </div>
+              </div>
+            </div>
+        
         </>
     )
 }
@@ -125,7 +132,7 @@ export const SignUpContent:React.FC<SignupContentInterface> = ({setCurrentPage,c
 
     const signInRouteFn = ()=>{
         if(pathName === '/auth/signup'){
-            router.push('/auth/login');
+            router.push('/auth/signin');
         }
         else{
             if(setCurrentPage){

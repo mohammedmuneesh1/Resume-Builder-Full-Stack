@@ -13,7 +13,9 @@ import { isUserExistService } from "../user/db";
 //@access Private 
 export async function CREATE_RESUME(req: Request, res: Response): Promise<any> {
 
-    const {title} = req.body;
+    const {title,templateId} = req.body;
+    console.log('templateId',templateId);
+    
     const userData = req.user;
 
     const defaultResumeData = {
@@ -30,6 +32,9 @@ export async function CREATE_RESUME(req: Request, res: Response): Promise<any> {
 
     const resume = await ResumeModel.create({
         userId:userData?.uId,
+        ...(typeof templateId === "string" ? {template:{
+            theme:templateId,
+        }} : {}),
         title,
         ...defaultResumeData,
     });
