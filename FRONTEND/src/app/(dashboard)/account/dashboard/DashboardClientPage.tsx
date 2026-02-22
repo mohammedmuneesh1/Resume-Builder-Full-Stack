@@ -1,12 +1,10 @@
 "use client"
 import AddNewResume from '@/components/dashboard/AddNewResume';
-import CreateResumeForm from '@/components/dashboard/CreateResumeForm';
 import ResumeSummaryCard from '@/components/dashboard/ResumeSummaryCard';
-import Modal from '@/components/modals/Modal';
 import { useModalContext } from '@/context/ModalContext';
 import moment from 'moment';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 
 
 interface DashboardClientPageInterface{

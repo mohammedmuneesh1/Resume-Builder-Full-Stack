@@ -17,7 +17,7 @@ const EducationInfoTemplate:React.FC<EducationInfoTemplateInterface> = ({educati
         <p className="text-sm text-gray-700 font-medium">{educationData?.institution ?? ""}</p>
         <div className="text-xs text-gray-500 font-medium italic mt-0.5">
                 {
-                `${formatYearMonth(educationData?.startDate )} - ${educationData?.endDate ? formatYearMonth(educationData?.endDate ) : "Present"}`} 
+                `${formatYearMonth(educationData?.startDate ?? "" )} - ${educationData?.endDate ? formatYearMonth(educationData?.endDate ) : "Present"}`} 
                 {/* {
                 `${formatYearMonth(educationData?.startDate )} - ${educationData?.endDate && (
                     new Date(educationData?.endDate) ? formatYearMonth(educationData?.endDate ) : "Present"
